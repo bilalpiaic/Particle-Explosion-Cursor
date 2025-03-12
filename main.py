@@ -1,8 +1,5 @@
-from flask import Flask, render_template
-import os
-
-app = Flask(__name__)
-app.secret_key = os.environ.get("SESSION_SECRET", "default-secret-key")
+from app import app
+from flask import render_template
 
 @app.route('/')
 def index():
