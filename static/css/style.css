@@ -3,6 +3,7 @@ body {
     padding: 0;
     overflow: hidden;
     background: black;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 #canvas-container {
@@ -11,9 +12,33 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
+    z-index: 1;
 }
 
 /* Ensure canvas is responsive */
 canvas {
     display: block;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: pixelated;
+}
+
+/* Performance optimizations */
+* {
+    box-sizing: border-box;
+}
+
+/* Prevent text selection for better performance */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Optimize for high DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    canvas {
+        image-rendering: -webkit-optimize-contrast;
+    }
 }

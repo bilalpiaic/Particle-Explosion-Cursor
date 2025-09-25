@@ -1,9 +1,8 @@
-from app import app
-from flask import render_template
+from app import app  # noqa: F401
 
-@app.route('/')
-def index():
-    return render_template('index.html')
-
+# WSGI entry point for production
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    import os
+    # Use environment variables to determine run mode
+    debug_mode = os.environ.get('FLASK_ENV') == 'development'
+    app.run(host="0.0.0.0", port=5000, debug=debug_mode)
