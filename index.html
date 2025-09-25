@@ -1,1 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Particle Explosion Cursor</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: #000;
+      overflow: hidden;
+      cursor: crosshair;
+      font-family: Arial, sans-serif;
+      color: white;
+    }
+    canvas {
+      display: block;
+    }
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      font-weight: bold;
+      color: #f1f1f1;
+      text-shadow: 0 0 10px #000;
+      opacity: 1;
+      transition: opacity 1s ease-out;
+      pointer-events: none;
+      text-align: center;
+    }
+    .message.hidden {
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particle-canvas"></canvas>
+  <div id="message" class="message">Click or Tap anywhere</div>
 
+  <script>
+    const canvas = document.getElementById("particle-canvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+
+    // Resize canvas to full screen
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    // Particle class
+    class Particle {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.size = Math.random() * 4 + 2;
+        this.speedX = (Math.random() - 0.5) * 8;
+        this.speedY = (Math.random() - 0.5) * 8;
+        this.color = color;
+        this.life = 100;
+      }
+
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        this.size *= 0.95; // shrink
+        this.life--;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      }
+    }
+
+    // Create explosion
+    function createExplosion(x, y) {
+      const colors = ["#ff4757", "#1e90ff", "#2ed573", "#f9ca24", "#ffffff"];
+      for (let i = 0; i < 40; i++) {
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        particles.push(new Particle(x, y, color));
+      }
+    }
+
+    // Hide message after first interaction
+    function hideMessage() {
+      const msg = document.getElementById("message");
+      if (msg && !msg.classList.contains("hidden")) {
+        msg.classList.add("hidden");
+      }
+    }
+
+    // Handle mouse click
+    window.addEventListener("click", (e) => {
+      createExplosion(e.clientX, e.clientY);
+      hideMessage();
+    });
+
+    // Handle touch tap
+    window.addEventListener("touchstart", (e) => {
+      const touch = e.touches[0];
+      createExplosion(touch.clientX, touch.clientY);
+      hideMessage();
+    });
+
+    // Animation loop
+    function animate() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.2)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle, index) => {
+        particle.update();
+        particle.draw();
+        if (particle.life <= 0 || particle.size < 0.5) {
+          particles.splice(index, 1);
+        }
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+</body>
+</html>
