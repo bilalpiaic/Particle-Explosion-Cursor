@@ -10,11 +10,53 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* Fallback styling to ensure visibility */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+        }
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+        }
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            z-index: 10;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body>
+    <div id="loading">Loading Interactive Particle System...</div>
     <div id="canvas-container"></div>
     
     <!-- Custom JS -->
+    <script>
+        // Debug logging
+        console.log('Page loaded, initializing...');
+        
+        // Remove loading message when p5.js is ready
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const loading = document.getElementById('loading');
+                if (loading) {
+                    loading.style.display = 'none';
+                }
+            }, 2000);
+        });
+    </script>
     <script src="{{ url_for('static', filename='js/particle.js') }}"></script>
     <script src="{{ url_for('static', filename='js/sketch.js') }}"></script>
 </body>
