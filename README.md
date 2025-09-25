@@ -7,6 +7,7 @@ A lightweight JavaScript effect that creates an **explosion of particles** at th
 ## 🚀 Demo
 
 ![Particle Explosion Cursor Demo](Particle Explosion Cursor.gif)
+Particle_Explosion_Cursor.gif
 
 ---
 
