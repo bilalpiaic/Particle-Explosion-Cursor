@@ -1,7 +1,3 @@
-Got it ✅
-Here’s a **raw `README.md`** draft in pure Markdown format for your repo. You can copy-paste this directly into your project.
-
-````markdown
 # Particle Explosion Cursor
 
 A lightweight JavaScript effect that creates an **explosion of particles** at the cursor position when clicked. Perfect for adding interactive flair to websites, landing pages, and creative projects.
@@ -140,11 +136,3 @@ See the [LICENSE](LICENSE) file for details.
 
 Inspired by open-source particle explosion effects and creative cursor animations.
 
-```
-
----
-
-⚡ Next step: If you paste your actual `particle-explosion.js` code, I can **replace the placeholder API docs** with exact method names, parameters, and defaults so the README is 100% aligned with your implementation.  
-
-Do you want me to refine this README after reviewing your exact JS file?
-```
